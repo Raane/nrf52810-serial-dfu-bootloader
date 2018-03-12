@@ -99,7 +99,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>nrf52832_xxaa	nRF52832_xxAA</state>
+          <state>nRF52810_xxaa	nRF52810_xxAA</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -178,9 +178,9 @@
           <name>CCDefines</name>
           <state>BOARD_PCA10040</state>
           <state>CONFIG_GPIO_AS_PINRESET</state>
-          <state>FLOAT_ABI_HARD</state>
-          <state>NRF52</state>
-          <state>NRF52832_XXAA</state>
+          <state>DEVELOP_IN_NRF52832</state>
+          <state>FLOAT_ABI_SOFT</state>
+          <state>NRF52810_XXAA</state>
           <state>NRF52_PAN_74</state>
           <state>NRF_DFU_SETTINGS_VERSION=1</state>
           <state>NRF_SD_BLE_API_VERSION=5</state>
@@ -522,9 +522,9 @@
       <name>ADefines</name>
           <state>BOARD_PCA10040</state>
           <state>CONFIG_GPIO_AS_PINRESET</state>
-          <state>FLOAT_ABI_HARD</state>
-          <state>NRF52</state>
-          <state>NRF52832_XXAA</state>
+          <state>DEVELOP_IN_NRF52832</state>
+          <state>FLOAT_ABI_SOFT</state>
+          <state>NRF52810_XXAA</state>
           <state>NRF52_PAN_74</state>
           <state>NRF_DFU_SETTINGS_VERSION=1</state>
           <state>NRF_SD_BLE_API_VERSION=5</state>
@@ -1064,10 +1064,9 @@
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\experimental_log\src\nrf_log_frontend.c</name>    </file>  </group>  <group>
   <name>Board Definition</name>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\boards\boards.c</name>    </file>  </group>  <group>
-  <name>None</name>    <file>
-    <name>$PROJ_DIR$\..\..\..\..\dfu_req_handling\dfu-cc.pb.c</name>    </file>    <file>
-    <name>$PROJ_DIR$\..\..\..\..\dfu_req_handling\dfu_public_key.c</name>    </file>    <file>
-    <name>$PROJ_DIR$\..\..\..\..\dfu_req_handling\dfu_req_handling.c</name>    </file>  </group>  <group>
+  <name>Application</name>    <file>
+    <name>$PROJ_DIR$\..\..\..\main.c</name>    </file>    <file>
+    <name>$PROJ_DIR$\..\config\sdk_config.h</name>    </file>  </group>  <group>
   <name>nRF_Libraries</name>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\button\app_button.c</name>    </file>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\util\app_error_weak.c</name>    </file>    <file>
@@ -1101,11 +1100,12 @@
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\crypto\nrf_crypto_keys.c</name>    </file>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\crypto\nrf_crypto_mem.c</name>    </file>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\crypto\nrf_crypto_rng.c</name>    </file>  </group>  <group>
-  <name>Application</name>    <file>
-    <name>$PROJ_DIR$\..\..\..\main.c</name>    </file>    <file>
-    <name>$PROJ_DIR$\..\config\sdk_config.h</name>    </file>  </group>  <group>
+  <name>None</name>    <file>
+    <name>$PROJ_DIR$\..\..\..\..\dfu_req_handling\dfu-cc.pb.c</name>    </file>    <file>
+    <name>$PROJ_DIR$\..\..\..\..\dfu_req_handling\dfu_public_key.c</name>    </file>    <file>
+    <name>$PROJ_DIR$\..\..\..\..\dfu_req_handling\dfu_req_handling.c</name>    </file>  </group>  <group>
   <name>nRF_micro-ecc</name>    <file>
-    <name>$PROJ_DIR$\..\..\..\..\..\..\external\micro-ecc\nrf52hf_iar\armgcc\micro_ecc_lib_nrf52.a</name>    </file>  </group>  <group>
+    <name>$PROJ_DIR$\..\..\..\..\..\..\external\micro-ecc\nrf52nf_iar\armgcc\micro_ecc_lib_nrf52.a</name>    </file>  </group>  <group>
   <name>nRF_Bootloader</name>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\bootloader\nrf_bootloader.c</name>    </file>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\bootloader\nrf_bootloader_app_start.c</name>    </file>    <file>
@@ -1122,8 +1122,8 @@
     <name>$PROJ_DIR$\..\..\..\..\..\..\external\nano-pb\pb_common.c</name>    </file>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\external\nano-pb\pb_decode.c</name>    </file>  </group>  <group>
   <name>Device</name>    <file>
-    <name>$PROJ_DIR$\..\..\..\..\..\..\components\toolchain\iar\iar_startup_nrf52.s</name>    </file>    <file>
-    <name>$PROJ_DIR$\..\..\..\..\..\..\components\toolchain\system_nrf52.c</name>    </file>  </group>  <group>
+    <name>$PROJ_DIR$\..\..\..\..\..\..\components\toolchain\iar\iar_startup_nrf52810.s</name>    </file>    <file>
+    <name>$PROJ_DIR$\..\..\..\..\..\..\components\toolchain\system_nrf52810.c</name>    </file>  </group>  <group>
   <name>nRF_SERIAL_DFU</name>    <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\components\libraries\bootloader\serial_dfu\nrf_serial_dfu.c</name>    </file>  </group>  <group>
   <name>nRF_SoftDevice</name>    <file>

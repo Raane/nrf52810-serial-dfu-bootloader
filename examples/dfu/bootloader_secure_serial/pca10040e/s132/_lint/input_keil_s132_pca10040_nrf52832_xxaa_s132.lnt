@@ -1,0 +1,382 @@
+//    co-rv.lnt
+//    Compiler Options for the ARMCC Compiler Version 5.02.28
+//
+//    This file contains options to allow PC-lint to process source
+//    files for your compiler.  It is used as follows:
+//
+//    lint  co-rv.lnt  source-file(s)
+//
+//    You may contact ARM Germany GmbH in Europe at:
+//
+//    ARM Germany GmbH
+//    Bretonischer Ring 16
+//    D-85630 Grasbrunn
+//    Germany
+//
+//    Sales direct   : +49 89 456040-0
+//    Sales fax      : +49 89 468162
+//    Support direct : +49 89 456040-24
+//    Sales email    : sales.intl@keil.com
+//    Support email  : support.intl@keil.com
+//
+//    You may contact ARM, Inc. in USA at:
+//
+//    ARM, Inc.
+//    4965 Preston Park Blvd, Suite 650
+//    Plano, Texas  75093
+//    Phone:  972-312-1107  Fax:  972-312-1159
+//    Sales:  800-348-8051
+//    Sales email: sales.us@keil.com
+//    Support email: support.us@keil.com
+
+-hsb_3           // formatting options required for MicroVision IDE
+-format="*** LINT: %(%f(%l) %)%t %n: %m"
+-width(0,10)     // Don't break lines
+
+            // while processing compiler (library) header files ...
+-wlib(1)    // sets the warning level within library headers to 1
+            // (no warnings, just syntax errors).  Comment out if you
+            // are actually linting library headers.  This
+            // option makes obsolete options of the form -elib(axxx) where
+            // xxx >= 400 which may be retained for historical reasons.
++v
+
+-elib(652)  // suppress message about #define of earlier declared symbols
+-elib(762)  // suppress message about multiple identical declarations and
+-elib(760)  // suppress message about multiple identical macro defs
+
+
+-d__ram=
+-d__arm=
+-d__irq=
+-d__value_in_regs=
+-d__task=
+-d__softfp=
+-d__pure=
+-d__packed=
+
++rw(_gobble)              // activate the _gobble keyword
+                          // causes _gobble token to be both ignored
+-d__restrict=
+-d__isr=_gobble           // defines __isr    to be a _gobble
+-d__task=_gobble          // defines __task   to be a _gobble
+-d__at=_gobble            // defines __at     to be a _gobble
++rw(_ignore_init)         // activate this keyword
+-d__asm=_ignore_init
++rw(__declspec)           // activate this MS keyword
++rw(_to_brackets)         // activate this keyword
++d__attribute__=_to_brackets
+
+
+-sp4                      // size of pointer is 4 bytes
++d__sizeof_int=4          // set __sizeof_int to 4 bytes
++d__sizeof_long=4         // set __sizeof_long to 4 bytes
++d__sizeof_ptr=4          // set __sizeof_ptr to 4 bytes
+
++d__arm__=1               // this is an ARM compiler
++d__CC_ARM=1              // this is an ARM compiler
++d__thumb__=1             // this is set when compiling in thumb mode
++d__thumb=1               // this is set when compiling in thumb mode
++d__ARMCC_VERSION=502028  // set RealView compiler version to 5.02 build 28
++d__DATE__="AUG 22 2012"  // set RealView compiler date macro
++d__TIME__="11:55:00"     // set RealView compiler time macro
++d__FILE__="MYFILE.C"     // set RealView compiler file macro
++d__MODULE__="MYFILE.C"   // set RealView compiler module macro
++d__LINE__=100            // set RealView compiler line macro
++d__STDC__=1              // set RealView compiler STDC macro
+
+
+//  The following functions exhibit variable return modes.
+//  That is, they may equally-usefully be called for a value
+//  as called just for their effects.  Accordingly we inhibit
+//  Warning 534 for these functions.
+//  Feel free to add to or subtract from this list.
+
+-esym(534,memcpy,memmove,memset,strncat,strncpy)
+-esym(534,printf,putchar,puts,scanf,sprintf,sscanf,strcat,strcpy)
+
+// inhibit error 123: Macro defined with arguments
+-esym(123,getchar,putchar)
+
+-emacro(413,offsetof)  // use of NULL pointer creates a stir
+-emacro(545,offsetof)  // addressing an array member is OK
+
+-emacro(526, NRF_SECTION_DEF)
+-emacro(10, NRF_SECTION_SET_DEF)
+-emacro(19, NRF_SECTION_SET_DEF)
+-emacro(40, NRF_SECTION_SET_DEF)
+-emacro(119, NRF_SECTION_SET_DEF)
+-emacro(409, NRF_SECTION_SET_DEF)
+-emacro(505, NRF_SECTION_SET_DEF)
+-emacro(533, NRF_SECTION_SET_DEF)
+-emacro(534, NRF_SECTION_SET_DEF)
+-emacro(31, MACRO_REPEAT_FOR)
+-emacro(102, MACRO_REPEAT_FOR)
+-emacro(666, BLE_EVT_LEN_MAX)
+
+
++fdi
++fan
++fas
++macros // Double maximum allowed macro size
+-w2
+-wlib(2)
+
+-e46 // Field type should be _Bool, unsigned int or signed int
+-e123 // The name of a macro defined with arguments was subsequently used without a following '('.
+-e114 // Inconsistent structure declaration
+-e401 // Throws warnings when module is included twice as mock and as a header inside tested unit sources
+-e451 // Header included repeatedly but does not have a standard include guard
+-e446 // Side effects in initializer
+-e485 // Duplicate initialization of object element
+-e514 // Unusual use of a Boolean expression
+-e537 // Repeated include file
+-e620 // Suspicious constant (L or one?)
+-e760 // Redundant macro defined identically
+-e793 // ANSI/ISO limit of "31 characters in a name" / "4095 macros in module" exceeded
+-e512 // Suppress warning when _STATIC is redefined
+-e401 // Suppress warning when _STATIC is redefined
++v
+
++rw(_gobble)                 // activate the _gobble keyword, causes _gobble token to be both ignored
+-d__nop()=_gobble            // defined to be a _gobble
+-d__isr=_gobble              // defined to be a _gobble
+-d__fiq=_gobble              // defined to be a _gobble
+-d__task=_gobble             // defined to be a _gobble
+-d__at=_gobble               // defined to be a _gobble
+-d__arm=_gobble              // defined to be a _gobble
+-d__thumb=_gobble            // defined to be a _gobble
+-d__ram=_gobble              // defined to be a _gobble
+-d__return_address()=_gobble // defined to be a _gobble
+-d__svc()=                   // defined to be compiler extension
+-d__nop()=                   // defined to be compiler extension
+-d__wfi()=                   // defined to be compiler extension
+-d__wfe()=                   // defined to be compiler extension
+-d__sev()=                   // defined to be compiler extension  (BLE addition)
+-d__dmb()=                   // defined to be compiler extension
+-d__enable_irq()=            // defined to be compiler extension
+-d__disable_irq()=           // defined to be compiler extension
+-d__asm__()=                 // defined to be compiler extension
+-d__dsb()=                   // defined to be compiler extension
+-d__isb()=                   // defined to be compiler extension
+-d__align()=                 // defined to be compiler extension
+-d__breakpoint()=            // defined to be compiler extension
+-dSTACK_BASE=0UL
+-dSTACK_TOP=0UL
+
+// Suppressing warning about stdarg calls
+-d__va_arg(a, b)=((void)a)
+-d__va_end()=
+-d__va_start()=
+
+// Suppressing warnings about __strex and __ldrex below:
+// This may look crazy, but it is the solution I have found to suppress any warnings for
+// __ldrex __strex build in functions.
+// We cannot just ignore them - because they returns some value that may be used by functions,
+// loops or conditional instructions. Also we have to have some possibility to tell lint
+// that its values are actually used.
+-d__strex(a, b)=((int)(a)!=(int)(b))
+-d__ldrex(a)=(*(a))
+-d__clz(a)=(0)
+
++rw(__asm)                   // activate this keyword
++rw(__weak)                  // activate this keyword
+
++rw(_ignore_init)            // activate this keyword
++rw(__declspec)              // activate this MS keyword
+
++ppw(warning)  // set #warning as a valid preprocessor directive.
+
+-efunc(716, main) // main function can have while (1) loop
+
+-e835 // A zero has been given as [left/right] argument to operator 'Name' [It is quite natural in embedded programming to add, or, shift by 0]
+
+-esym(765,*_IRQHandler) // Could be made static
+-esym(714,*_IRQHandler) // Not referenced
+
+-e740 // Unusual pointer cast (incompatible indirect types)
+
+// Define _AEABI_PORTABILITY_LEVEL and __DEFAULT_AEABI_PORTABILITY_LEVEL for Lint.
+// See http://infocenter.arm.com/help/topic/com.arm.doc.dui0349c/CJAIFJGA.html for more info.
+-d_AEABI_PORTABILITY_LEVEL=0
+-d__DEFAULT_AEABI_PORTABILITY_LEVEL=0
+
+-d__ARM_NO_DEPRECATED_FUNCTIONS=0
+
+-d__LINT__=1
+
+// BLE additional settings
+-e641                        // Converting enum to int                                [We use enums for (named) limited range numerics]
+-e522                        // Highest function 'Name' lacks side-effects            [In our context this is practially always a false warning]
+-epuc                        // Treat "string literals" as unsigned char
+-e506                        // Constant value Boolean.
+-e613                        // Possible use of null pointer in argument.
+-e453                        // pure/impure suppressed. Lint is not handling weak function
+-e1564                       // suppressing troubles with interpreting bool types
+-e655                        // suppressing troubles with using bit-wise operations on enums
+
+-esym(578,static_assert_failed) // Declaration of symbol 'static_assert_failed' hides symbol 'static_assert_failed'
+
+-esym(526,__INTADDR__)       // __INTADDR__ is an ARM intrinsic function only know by the compiler, thus Lint will issue a warning when using this function, even though it's valid.
+-esym(516,__INTADDR__)       // __INTADDR__ is an ARM intrinsic function only know by the compiler, thus Lint will issue a warning when using this function, even though it's valid.
+-esym(628,__INTADDR__)       // __INTADDR__ is an ARM intrinsic function only know by the compiler, thus Lint will issue a warning when using this function, even though it's valid.
+
+-esym(526,__schedule_barrier)       // __schedule_barrier is an ARM intrinsic function only know by the compiler, thus Lint will issue a warning when using this function, even though it's valid.
+-esym(628,__schedule_barrier)       // __schedule_barrier is an ARM intrinsic function only know by the compiler, thus Lint will issue a warning when using this function, even though it's valid.
+
+-esym(526,__current_sp)      // __current_sp is an ARM intrinsic function only know by the compiler, thus Lint will issue a warning when using this function, even though it's valid.
+-esym(628,__current_sp)      // __current_sp is an ARM intrinsic function only know by the compiler, thus Lint will issue a warning when using this function, even though it's valid.
+
+-esym(526,dfu_ble_svc_peer_data_set)      // dfu_ble_svc_peer_data_set is a bootloader/dfu SVC, thus Lint will issue a warning when using this function, even though it's valid.
+
+-esym(14,app_error_handler) // common app_error_handler is weak
+
+-e695                   // Inline function defined without a stroage class specifier (Keil's inlining ignores this).
+
+// New CMSIS require defines that isn't handle by 32 bit MCU like Cortex-M0
+-d__CORTEX_SC=0
+-e417 // The Keil 5.12 stdint.h supports 64bits and that causes warning 417
+
+-e539 //Unexpected positive indentation in system_nrf52.c
+
+-dBOARD_PCA10040
+-dCONFIG_GPIO_AS_PINRESET
+-dDEVELOP_IN_NRF52832
+-dFLOAT_ABI_SOFT
+-dNRF52810_XXAA
+-dNRF52_PAN_74
+-dNRF_DFU_SETTINGS_VERSION=1
+-dNRF_SD_BLE_API_VERSION=5
+-dS132
+-dSOFTDEVICE_PRESENT
+-dSVC_INTERFACE_CALL_AS_NORMAL_FUNCTION
+-dSWI_DISABLE0
+-d__HEAP_SIZE=0
+
+-i"C:\git\sdk\sdk\nrf5\examples\dfu\bootloader_secure_serial\config"
+-i"C:\git\sdk\sdk\nrf5\components"
+-i"C:\git\sdk\sdk\nrf5\components\boards"
+-i"C:\git\sdk\sdk\nrf5\components\device"
+-i"C:\git\sdk\sdk\nrf5\components\drivers_nrf\clock"
+-i"C:\git\sdk\sdk\nrf5\components\drivers_nrf\common"
+-i"C:\git\sdk\sdk\nrf5\components\drivers_nrf\delay"
+-i"C:\git\sdk\sdk\nrf5\components\drivers_nrf\gpiote"
+-i"C:\git\sdk\sdk\nrf5\components\drivers_nrf\hal"
+-i"C:\git\sdk\sdk\nrf5\components\drivers_nrf\rng"
+-i"C:\git\sdk\sdk\nrf5\components\drivers_nrf\uart"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\atomic"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\balloc"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\bootloader"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\serial_dfu"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\bsp"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\button"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\crc32"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\crypto"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\micro_ecc"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\nrf_crypto_sw"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\experimental_log"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\experimental_log\src"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\experimental_memobj"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\experimental_section_vars"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\fstorage"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\mem_manager"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\queue"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\scheduler"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\sha256"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\slip"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\strerror"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\svc"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\timer"
+-i"C:\git\sdk\sdk\nrf5\components\libraries\util"
+-i"C:\git\sdk\sdk\nrf5\components\softdevice\common"
+-i"C:\git\sdk\sdk\nrf5\components\softdevice\s132\headers"
+-i"C:\git\sdk\sdk\nrf5\components\softdevice\s132\headers\nrf52"
+-i"C:\git\sdk\sdk\nrf5\components\toolchain"
+-i"C:\git\sdk\sdk\nrf5\examples\dfu\bootloader_secure_serial"
+-i"C:\git\sdk\sdk\nrf5\examples\dfu\dfu_req_handling"
+-i"C:\git\sdk\sdk\nrf5\external\micro-ecc\micro-ecc"
+-i"C:\git\sdk\sdk\nrf5\external\nano-pb"
+-i"C:\git\sdk\sdk\nrf5\examples\dfu\bootloader_secure_serial\pca10040\s132\config"
+
+// Includes specified in lin configuration file:
+-i"C:\Keil_v5\ARM\ARMCC\include"
+// Include directories implicitly added by uVision, depending on target:
+-i"C:\Keil_v5\ARM\Pack\ARM\CMSIS\4.5.0\CMSIS\Include"
+-i"C:\Keil_v5\ARM\Pack\ARM\CMSIS\4.3.0\CMSIS\Include"
+-i"C:\Keil_v5\ARM\Pack\ARM\CMSIS\4.2.0\CMSIS\Include"
+-i"C:\Keil_v5\ARM\Pack\ARM\CMSIS\4.1.0\CMSIS\Include"
+
+"C:\git\sdk\sdk\nrf5\examples\dfu\bootloader_secure_serial\main.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bsp\bsp.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bsp\bsp_nfc.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\experimental_log\src\nrf_log_frontend.c"
+-save -e568 -e685 -e681
+"C:\git\sdk\sdk\nrf5\components\boards\boards.c"
+-restore
+"C:\git\sdk\sdk\nrf5\components\libraries\button\app_button.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\util\app_error_weak.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\scheduler\app_scheduler.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\timer\app_timer.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\util\app_util_platform.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crc32\crc32.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\mem_manager\mem_manager.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\util\nrf_assert.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\balloc\nrf_balloc.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\fstorage\nrf_fstorage.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\fstorage\nrf_fstorage_nvmc.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\experimental_memobj\nrf_memobj.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\queue\nrf_queue.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\experimental_section_vars\nrf_section_iter.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\strerror\nrf_strerror.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\sha256\sha256.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\slip\slip.c"
+"C:\git\sdk\sdk\nrf5\components\drivers_nrf\clock\nrf_drv_clock.c"
+-save -e553
+"C:\git\sdk\sdk\nrf5\components\drivers_nrf\common\nrf_drv_common.c"
+-restore
+"C:\git\sdk\sdk\nrf5\components\drivers_nrf\gpiote\nrf_drv_gpiote.c"
+"C:\git\sdk\sdk\nrf5\components\drivers_nrf\rng\nrf_drv_rng.c"
+"C:\git\sdk\sdk\nrf5\components\drivers_nrf\uart\nrf_drv_uart.c"
+"C:\git\sdk\sdk\nrf5\components\drivers_nrf\hal\nrf_nvmc.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\nrf_crypto_ecdh.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\nrf_crypto_ecdsa.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\nrf_crypto_hash.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\nrf_crypto_init.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\nrf_crypto_keys.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\nrf_crypto_mem.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\nrf_crypto_rng.c"
+-save -e????
+"C:\git\sdk\sdk\nrf5\examples\dfu\dfu_req_handling\dfu-cc.pb.c"
+-restore
+"C:\git\sdk\sdk\nrf5\examples\dfu\dfu_req_handling\dfu_public_key.c"
+"C:\git\sdk\sdk\nrf5\examples\dfu\dfu_req_handling\dfu_req_handling.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\nrf_bootloader.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\nrf_bootloader_app_start.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\nrf_bootloader_app_start_asm.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\nrf_bootloader_info.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu\nrf_dfu.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu\nrf_dfu_flash.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu\nrf_dfu_handling_error.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu\nrf_dfu_mbr.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu\nrf_dfu_settings.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu\nrf_dfu_transport.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\dfu\nrf_dfu_utils.c"
+-save -e????
+"C:\git\sdk\sdk\nrf5\external\nano-pb\pb_common.c"
+-restore
+-save -e????
+"C:\git\sdk\sdk\nrf5\external\nano-pb\pb_decode.c"
+-restore
+"C:\git\sdk\sdk\nrf5\components\toolchain\system_nrf52810.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\bootloader\serial_dfu\nrf_serial_dfu.c"
+"C:\git\sdk\sdk\nrf5\components\softdevice\common\nrf_sdh.c"
+"C:\git\sdk\sdk\nrf5\components\softdevice\common\nrf_sdh_soc.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\micro_ecc\micro_ecc_lib_ecdh.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\micro_ecc\micro_ecc_lib_ecdsa.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\micro_ecc\micro_ecc_lib_init.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\micro_ecc\micro_ecc_lib_keys.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\micro_ecc\micro_ecc_lib_shared.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\nrf_crypto_sw\nrf_crypto_sw_hash.c"
+"C:\git\sdk\sdk\nrf5\components\libraries\crypto\backend\nrf_crypto_sw\nrf_crypto_sw_rng.c"
+

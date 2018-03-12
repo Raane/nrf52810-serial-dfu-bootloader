@@ -2,12 +2,12 @@
 /*-Editor annotation file-*/
 /* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
 /*-Specials-*/
-define symbol __ICFEDIT_intvec_start__ = 0x78000;
+define symbol __ICFEDIT_intvec_start__ = 0x28000;
 /*-Memory Regions-*/
-define symbol __ICFEDIT_region_ROM_start__   = 0x78000;
-define symbol __ICFEDIT_region_ROM_end__     = 0x7dfff;
+define symbol __ICFEDIT_region_ROM_start__   = 0x28000;
+define symbol __ICFEDIT_region_ROM_end__     = 0x2dfff;
 define symbol __ICFEDIT_region_RAM_start__   = 0x20002c00;
-define symbol __ICFEDIT_region_RAM_end__     = 0x2000ff7f;
+define symbol __ICFEDIT_region_RAM_end__     = 0x20005f7f;
 export symbol __ICFEDIT_region_RAM_start__;
 export symbol __ICFEDIT_region_RAM_end__;
 /*-Sizes-*/

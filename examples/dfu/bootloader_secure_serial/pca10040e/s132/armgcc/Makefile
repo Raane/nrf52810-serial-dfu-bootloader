@@ -14,9 +14,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/bsp/bsp_nfc.c \
   $(SDK_ROOT)/components/libraries/experimental_log/src/nrf_log_frontend.c \
   $(SDK_ROOT)/components/boards/boards.c \
-  $(PROJ_DIR)/../dfu_req_handling/dfu-cc.pb.c \
-  $(PROJ_DIR)/../dfu_req_handling/dfu_public_key.c \
-  $(PROJ_DIR)/../dfu_req_handling/dfu_req_handling.c \
+  $(PROJ_DIR)/main.c \
   $(SDK_ROOT)/components/libraries/button/app_button.c \
   $(SDK_ROOT)/components/libraries/util/app_error_weak.c \
   $(SDK_ROOT)/components/libraries/scheduler/app_scheduler.c \
@@ -47,7 +45,9 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_keys.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_mem.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_rng.c \
-  $(PROJ_DIR)/main.c \
+  $(PROJ_DIR)/../dfu_req_handling/dfu-cc.pb.c \
+  $(PROJ_DIR)/../dfu_req_handling/dfu_public_key.c \
+  $(PROJ_DIR)/../dfu_req_handling/dfu_req_handling.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start_asm.c \
@@ -61,8 +61,8 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/bootloader/dfu/nrf_dfu_utils.c \
   $(SDK_ROOT)/external/nano-pb/pb_common.c \
   $(SDK_ROOT)/external/nano-pb/pb_decode.c \
-  $(SDK_ROOT)/components/toolchain/gcc/gcc_startup_nrf52.S \
-  $(SDK_ROOT)/components/toolchain/system_nrf52.c \
+  $(SDK_ROOT)/components/toolchain/gcc/gcc_startup_nrf52810.S \
+  $(SDK_ROOT)/components/toolchain/system_nrf52810.c \
   $(SDK_ROOT)/components/libraries/bootloader/serial_dfu/nrf_serial_dfu.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh.c \
   $(SDK_ROOT)/components/softdevice/common/nrf_sdh_soc.c \
@@ -125,7 +125,7 @@ INC_FOLDERS += \
 
 # Libraries common to all targets
 LIB_FILES += \
-  $(SDK_ROOT)/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a \
+  $(SDK_ROOT)/external/micro-ecc/nrf52nf_armgcc/armgcc/micro_ecc_lib_nrf52.a \
 
 # Optimization flags
 OPT = -Os -g3
@@ -136,9 +136,9 @@ OPT = -Os -g3
 CFLAGS += $(OPT)
 CFLAGS += -DBOARD_PCA10040
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
-CFLAGS += -DFLOAT_ABI_HARD
-CFLAGS += -DNRF52
-CFLAGS += -DNRF52832_XXAA
+CFLAGS += -DDEVELOP_IN_NRF52832
+CFLAGS += -DFLOAT_ABI_SOFT
+CFLAGS += -DNRF52810_XXAA
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_DFU_SETTINGS_VERSION=1
 CFLAGS += -DNRF_SD_BLE_API_VERSION=5
@@ -150,7 +150,7 @@ CFLAGS += -D__HEAP_SIZE=0
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
 CFLAGS +=  -Wall -Werror
-CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+CFLAGS += -mfloat-abi=soft
 # keep every function in a separate section, this allows linker to discard unused ones
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums -flto
@@ -162,12 +162,12 @@ CXXFLAGS += $(OPT)
 ASMFLAGS += -g3
 ASMFLAGS += -mcpu=cortex-m4
 ASMFLAGS += -mthumb -mabi=aapcs
-ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
+ASMFLAGS += -mfloat-abi=soft
 ASMFLAGS += -DBOARD_PCA10040
 ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
-ASMFLAGS += -DFLOAT_ABI_HARD
-ASMFLAGS += -DNRF52
-ASMFLAGS += -DNRF52832_XXAA
+ASMFLAGS += -DDEVELOP_IN_NRF52832
+ASMFLAGS += -DFLOAT_ABI_SOFT
+ASMFLAGS += -DNRF52810_XXAA
 ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_DFU_SETTINGS_VERSION=1
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=5
@@ -181,7 +181,6 @@ ASMFLAGS += -D__HEAP_SIZE=0
 LDFLAGS += $(OPT)
 LDFLAGS += -mthumb -mabi=aapcs -L $(TEMPLATE_PATH) -T$(LINKER_SCRIPT)
 LDFLAGS += -mcpu=cortex-m4
-LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # let linker dump unused sections
 LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
